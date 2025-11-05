@@ -26,9 +26,6 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
-
     @Bean
     public UserDetailsService userDetailsService() {
         return new com.smarttaxi.userservice.security.UserDetailsServiceImpl();
@@ -83,7 +80,11 @@ public class SecurityConfig {
             );
 
         http.authenticationProvider(authenticationProvider());
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        
+        JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter();
+        jwtFilter.setUserDetailsService(userDetailsService());
+        jwtFilter.setJwtUtil(jwtUtil); // We need to inject jwtUtil
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
