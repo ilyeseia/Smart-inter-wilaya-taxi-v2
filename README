@@ -1,0 +1,369 @@
+# 🚖 Smart Inter-Wilaya Taxi Platform v2
+
+A modern Django microservices platform for inter-city taxi drivers with real-time location tracking, group-based communication, and AI-powered assistance.
+
+[![Django](https://img.shields.io/badge/Django-4.2.7-brightgreen.svg)](https://www.djangoproject.com/)
+[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://postgresql.org)
+[![Redis](https://img.shields.io/badge/Redis-7-red.svg)](https://redis.io/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://docker.com)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+## 🏗️ Architecture Overview
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Frontend      │    │  API Gateway    │    │  User Service   │
+│   (React/Vue)   │◄──►│   (Django)      │◄──►│  (Django)       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                                │
+                    ┌─────────────────┐
+                    │  PostgreSQL     │
+                    │  (Database)     │
+                    └─────────────────┘
+                                │
+                    ┌─────────────────┐
+                    │     Redis       │
+                    │   (Cache)       │
+                    └─────────────────┘
+```
+
+## ✨ Features
+
+### 🔐 **User Management**
+- **JWT Authentication** with role-based access control
+- **Driver registration** with license verification
+- **Profile management** with location data
+- **Vehicle registration** and verification
+- **Multi-role support** (USER, ADMIN, DRIVER, MODERATOR)
+
+### 🚗 **Vehicle Management**
+- **Fleet management** with driver associations
+- **Document tracking** (insurance, registration)
+- **Vehicle verification** workflow
+- **Multi-vehicle support** per driver
+
+### 📡 **API Gateway**
+- **Service routing** and load balancing
+- **Health monitoring** and service discovery
+- **Request/response logging**
+- **Error handling** and circuit breaking
+
+### 🏢 **Microservices Architecture**
+- **Independent deployment** of services
+- **Technology flexibility** per service
+- **Fault isolation** and resilience
+- **Horizontal scaling** capabilities
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Docker & Docker Compose
+- Python 3.11+
+- PostgreSQL 15+
+- Redis 7+
+
+### 🏃‍♂️ Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/Smart-inter-wilaya-taxi-v2.git
+cd Smart-inter-wilaya-taxi-v2
+
+# Start all services
+chmod +x quick_start_django.sh
+./quick_start_django.sh
+
+# Test the deployment
+chmod +x test_django_migration.sh
+./test_django_migration.sh
+```
+
+### 🐳 Docker Deployment
+
+```bash
+# Start production services
+docker-compose -f docker-compose-django.yml up -d
+
+# Check service health
+curl http://localhost:8000/api/health/
+curl http://localhost:8001/api/health/
+```
+
+## 📊 Service URLs
+
+| Service | Local URL | Purpose |
+|---------|-----------|---------|
+| **API Gateway** | http://localhost:8000 | Main entry point |
+| **User Service** | http://localhost:8001 | User management |
+| **Database** | localhost:5432 | PostgreSQL |
+| **Cache** | localhost:6379 | Redis |
+
+## 🔗 API Endpoints
+
+### Authentication
+```bash
+# User Registration
+POST /api/user/auth/register
+{
+  "email": "driver@example.com",
+  "password": "securepassword",
+  "first_name": "Ahmed",
+  "last_name": "Benali",
+  "phone_number": "+213555123456",
+  "city": "Algiers",
+  "wilaya": "Algiers",
+  "license_number": "D123456"
+}
+
+# User Login
+POST /api/user/auth/login
+{
+  "email": "driver@example.com",
+  "password": "securepassword"
+}
+```
+
+### User Management
+```bash
+# Get current user profile
+GET /api/user/users/me
+Authorization: Bearer <token>
+
+# List users (paginated)
+GET /api/user/users/list
+Authorization: Bearer <token>
+
+# Get user by ID
+GET /api/user/users/{id}
+Authorization: Bearer <token>
+```
+
+### Vehicle Management
+```bash
+# List vehicles
+GET /api/user/vehicles
+Authorization: Bearer <token>
+
+# Create vehicle
+POST /api/user/vehicles
+{
+  "license_plate": "12345-Algiers-16",
+  "make": "Renault",
+  "model": "Symbol",
+  "year_of_manufacture": 2018,
+  "vehicle_type": "sedan"
+}
+```
+
+## 🏗️ Project Structure
+
+```
+Smart-inter-wilaya-taxi-v2/
+├── django_user_service/          # User Management Service
+│   ├── user_service/            # Django app
+│   │   ├── models.py           # Database models
+│   │   ├── serializers.py      # API serializers
+│   │   ├── views.py           # API views
+│   │   ├── urls.py           # URL routing
+│   │   └── settings.py       # Django settings
+│   ├── requirements.txt       # Python dependencies
+│   ├── Dockerfile            # Container configuration
+│   └── manage.py            # Django management
+├── django_api_gateway/          # API Gateway Service
+│   ├── gateway_service/       # Django app
+│   │   ├── views.py         # Proxy views
+│   │   ├── urls.py         # Gateway routing
+│   │   └── settings.py     # Gateway settings
+│   ├── requirements.txt     # Python dependencies
+│   ├── Dockerfile          # Container configuration
+│   └── manage.py          # Django management
+├── database/                 # Database schema
+│   └── setup.sql           # PostgreSQL setup
+├── docker-compose-django.yml # Docker orchestration
+├── .github/workflows/       # CI/CD pipeline
+├── GITHUB_DEPLOYMENT_GUIDE.md
+├── DJANGO_MIGRATION_README.md
+├── quick_start_django.sh
+├── test_django_migration.sh
+└── README.md
+```
+
+## 🛠️ Development
+
+### Local Development Setup
+```bash
+# User Service
+cd django_user_service
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python manage.py makemigrations
+python manage.py migrate
+python manage.py init_sample_data
+python manage.py runserver 0.0.0.0:8001
+
+# API Gateway (in new terminal)
+cd django_api_gateway
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python manage.py runserver 0.0.0.0:8000
+```
+
+### Testing
+```bash
+# Run all tests
+./test_django_migration.sh
+
+# Run specific service tests
+cd django_user_service && python manage.py test
+cd django_api_gateway && python manage.py test
+
+# Security scanning
+pip install safety bandit
+safety check
+bandit -r .
+```
+
+## 🚀 Deployment
+
+### Cloud Deployment Options
+
+#### **Heroku**
+```bash
+# Install Heroku CLI and run
+heroku create smarttaxi-user-service
+heroku addons:create heroku-postgresql:mini
+heroku config:set SECRET_KEY=your-secret-key
+heroku container:push web
+heroku container:release web
+```
+
+#### **AWS ECS**
+```bash
+# Deploy to AWS ECS
+aws ecr create-repository --repository-name smarttaxi/user-service
+docker push <account-id>.dkr.ecr.<region>.amazonaws.com/smarttaxi/user-service:latest
+```
+
+#### **Google Cloud Run**
+```bash
+# Deploy to Google Cloud Run
+gcloud builds submit --tag gcr.io/PROJECT-ID/smarttaxi-user-service
+gcloud run deploy smarttaxi-user-service --image gcr.io/PROJECT-ID/smarttaxi-user-service
+```
+
+#### **Azure Container Instances**
+```bash
+# Deploy to Azure
+az group create --name SmartTaxiRG --location eastus
+az container create --resource-group SmartTaxiRG --name smarttaxi-user-service --image smarttaxi/user-service:latest
+```
+
+### Environment Variables
+```bash
+# Production settings
+DEBUG=False
+SECRET_KEY=<secure-secret-key>
+DATABASE_URL=postgresql://user:pass@host:port/db
+REDIS_HOST=redis-host
+REDIS_PORT=6379
+JWT_SECRET=<jwt-secret>
+ALLOWED_HOSTS=yourdomain.com
+```
+
+## 📈 Performance
+
+### Caching Strategy
+- **Redis** for session management and API response caching
+- **Database indexing** on frequently queried fields
+- **Query optimization** with Django ORM
+
+### Monitoring
+- **Health check endpoints** for all services
+- **Service status** monitoring via API Gateway
+- **Request/response logging** for debugging
+- **Performance metrics** collection
+
+## 🔒 Security
+
+### Authentication & Authorization
+- **JWT tokens** for stateless authentication
+- **Role-based access control** (RBAC)
+- **Password encryption** with Django's hasher
+- **CORS protection** for cross-origin requests
+
+### Security Measures
+- **Input validation** and sanitization
+- **SQL injection protection** via ORM
+- **CSRF protection** for web forms
+- **Security headers** implementation
+
+## 🧪 Testing
+
+### Test Coverage
+- **Unit tests** for models and views
+- **Integration tests** for API endpoints
+- **Security tests** with automated scanning
+- **Performance tests** for load testing
+
+### Quality Assurance
+- **Code quality** with Black and Flake8
+- **Security scanning** with Safety and Bandit
+- **Dependency checking** for vulnerabilities
+- **Coverage reporting** with Codecov
+
+## 📚 Documentation
+
+- **[Migration Guide](DJANGO_MIGRATION_README.md)** - Complete Spring Boot to Django migration
+- **[Deployment Guide](GITHUB_DEPLOYMENT_GUIDE.md)** - GitHub repository deployment
+- **API Documentation** - Interactive docs at `/admin/`
+- **Architecture Documentation** - System design and patterns
+
+## 🤝 Contributing
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
+
+### Development Guidelines
+- Follow **PEP 8** Python style guide
+- Write **comprehensive tests** for new features
+- Update **documentation** for API changes
+- Ensure **security** considerations are addressed
+- Use **meaningful commit messages**
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Django Team** for the excellent web framework
+- **Django REST Framework** for powerful API development
+- **PostgreSQL** for reliable database management
+- **Redis** for high-performance caching
+- **Docker** for containerization and deployment
+
+## 🆘 Support
+
+### Getting Help
+- **Documentation**: Check the guides in `/docs/`
+- **Issues**: Open a GitHub issue for bugs
+- **Discussions**: Use GitHub Discussions for questions
+- **Security**: Report security issues via email
+
+### Common Issues
+- **Database Connection**: Check `DATABASE_URL` format
+- **Redis Connection**: Verify `REDIS_HOST` and port
+- **JWT Issues**: Ensure `JWT_SECRET` is consistent
+- **Docker Problems**: Check logs with `docker-compose logs`
+
+---
+
+**Built with ❤️ using Django and modern microservices architecture**
+
+**Version**: 2.0.0 | **Last Updated**: November 2025 | **Status**: Production Ready

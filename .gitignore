@@ -1,61 +1,69 @@
-# Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
+# Django
+*.log
+*.log.*
+*.sqlite3
+db.sqlite3
+db.sqlite3-journal
+django_user_service/media/
+django_user_service/static/
+django_user_service/staticfiles/
+django_api_gateway/media/
+django_api_gateway/static/
+django_api_gateway/staticfiles/
 
-# Java
-*.class
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
+# Python virtual environments
+django_user_service/.venv/
+django_user_service/venv/
+django_api_gateway/.venv/
+django_api_gateway/venv/
+.venv/
+venv/
+ENV/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django migrations
+*/migrations/__pycache__/
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Environment files
+.env
+.env.local
+.env.*.local
+django_user_service/.env
+django_api_gateway/.env
 
 # IDE
+.vscode/
 .idea/
-*.iml
-*.ipr
-*.iws
-.project
-.classpath
-.settings/
-bin/
-tmp/
-*.tmp
-*.bak
 *.swp
-*~.nib
-local.properties
-.loadpath
-.recommenders
-.metadata
-.terracotta
-
-# Eclipse
-.apt_generated
-.factorypath
-.buildpath
-.target
-.tern-project
-.tx
-
-# NetBeans
-/nbproject/private/
-/nb-build/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+*.swo
+*~
 
 # OS
 .DS_Store
@@ -66,18 +74,44 @@ build/
 ehthumbs.db
 Thumbs.db
 
+# Docker
+docker-compose.override.yml
+.dockerignore
+
 # Logs
 logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Database
-*.db
-*.sqlite
-*.sqlite3
+database/data/
 
-# Build and temp files
-*.tmp
-*.temp
-build/
+# Redis
+redis_data/
+
+# Certificates
+*.pem
+*.key
+*.crt
+
+# Test files
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node.js (if using for frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+*.tar.gz
+*.zip
+
+# Local development
+.local/
 temp/
 tmp/

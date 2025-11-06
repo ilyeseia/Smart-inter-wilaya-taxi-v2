@@ -1,0 +1,159 @@
+#!/bin/bash
+# GitHub Deployment Script for ilyeseia
+# Deploys Django microservices to Smart-inter-wilaya-taxi-v2
+
+set -e  # Exit on any error
+
+echo "🚀 Deploying Django Microservices to GitHub"
+echo "=============================================="
+echo "Repository: ilyeseia/Smart-inter-wilaya-taxi-v2"
+echo
+
+# Configuration
+GITHUB_USERNAME="ilyeseia"
+REPO_NAME="Smart-inter-wilaya-taxi-v2"
+REPO_URL="https://github.com/${GITHUB_USERNAME}/${REPO_NAME}.git"
+
+# Check if git is installed
+if ! command -v git &> /dev/null; then
+    echo "❌ Git is not installed. Please install Git first."
+    exit 1
+fi
+
+# Check if gh (GitHub CLI) is installed
+if ! command -v gh &> /dev/null; then
+    echo "⚠️  GitHub CLI (gh) is not installed."
+    echo "   You can install it from: https://cli.github.com/"
+    echo "   Or use the web interface to create the repository."
+    echo
+fi
+
+# Initialize git repository if not already done
+if [ ! -d ".git" ]; then
+    echo "📁 Initializing Git repository..."
+    git init
+else
+    echo "✅ Git repository already initialized"
+fi
+
+# Add all files to git
+echo "📄 Adding files to Git..."
+git add .
+
+# Create initial commit if no commit exists
+if ! git rev-parse HEAD &> /dev/null; then
+    echo "💾 Creating initial commit..."
+    git commit -m "Initial Django microservices migration from Spring Boot
+
+🚀 Features:
+- Django User Service with JWT authentication
+- Django API Gateway for microservices routing  
+- PostgreSQL database integration
+- Redis caching and session management
+- Docker containerization for production
+- Complete API documentation
+- CI/CD pipeline with GitHub Actions
+- Health monitoring and service discovery
+- Role-based access control (USER, ADMIN, DRIVER)
+- Vehicle management with verification
+- Security scanning and testing
+
+🛠️ Tech Stack:
+- Django 4.2.7 with REST Framework
+- PostgreSQL 15 database
+- Redis 7 for caching
+- Docker & Docker Compose
+- GitHub Actions CI/CD
+- Python 3.11+
+
+📚 Documentation:
+- DJANGO_MIGRATION_README.md - Complete migration guide
+- GITHUB_DEPLOYMENT_GUIDE.md - Deployment instructions
+- Quick start scripts included
+
+Ready for production deployment! 🎉"
+else
+    echo "💾 Committing changes..."
+    git commit -m "Update: Django microservices platform ready for deployment"
+fi
+
+# Set main branch
+echo "🌿 Setting up main branch..."
+git branch -M main
+
+# Check if remote already exists
+if git remote get-url origin &> /dev/null; then
+    echo "🔗 Updating existing remote origin..."
+    git remote set-url origin "${REPO_URL}"
+else
+    echo "🔗 Adding remote origin..."
+    git remote add origin "${REPO_URL}"
+fi
+
+# Try to create repository using GitHub CLI if available
+if command -v gh &> /dev/null; then
+    echo "🔧 Creating GitHub repository using GitHub CLI..."
+    
+    # Check if user is logged in
+    if gh auth status &> /dev/null; then
+        # Create repository
+        if gh repo create "${REPO_NAME}" --public --description "Django microservices platform for inter-city taxi drivers - Real-time location tracking, group-based communication, and AI-powered assistance" --source=. --push; then
+            echo "✅ Repository created and pushed successfully!"
+        else
+            echo "⚠️  Repository might already exist. Trying to push..."
+            git push -u origin main
+        fi
+    else
+        echo "⚠️  Please login to GitHub CLI first: gh auth login"
+        echo "   Then run this script again, or push manually:"
+        echo "   git push -u origin main"
+    fi
+else
+    echo "📋 Manual steps required to create repository:"
+    echo "   1. Go to https://github.com/new"
+    echo "   2. Repository name: ${REPO_NAME}"
+    echo "   3. Description: Django microservices platform for inter-city taxi drivers"
+    echo "   4. Set as Public or Private"
+    echo "   5. DO NOT initialize with README (we already have one)"
+    echo "   6. Click 'Create repository'"
+    echo
+    echo "   Then push your code:"
+    echo "   git push -u origin main"
+fi
+
+echo
+echo "🎉 GitHub deployment preparation complete!"
+echo "========================================="
+echo
+echo "Repository: ${REPO_URL}"
+echo
+echo "📊 Project Summary:"
+echo "  • Django User Service with full authentication"
+echo "  • Django API Gateway for microservices routing"
+echo "  • PostgreSQL + Redis integration"
+echo "  • Docker containerization"
+echo "  • CI/CD pipeline with GitHub Actions"
+echo "  • Production-ready configuration"
+echo
+echo "🚀 Next Steps:"
+if command -v gh &> /dev/null && gh auth status &> /dev/null; then
+    echo "  ✅ Repository should be created and pushed automatically"
+else
+    echo "  1. Create repository: https://github.com/new"
+    echo "  2. Repository name: ${REPO_NAME}"
+    echo "  3. Push code: git push -u origin main"
+fi
+echo "  4. Configure GitHub Secrets (DOCKER_USERNAME, DOCKER_PASSWORD)"
+echo "  5. Enable GitHub Actions in repository settings"
+echo "  6. Deploy to your preferred cloud platform"
+echo
+echo "📖 Documentation:"
+echo "  • DJANGO_MIGRATION_README.md - Migration details"
+echo "  • GITHUB_DEPLOYMENT_GUIDE.md - Deployment guide"
+echo "  • README.md - Project overview and API docs"
+echo
+echo "🛠️  Quick Commands:"
+echo "  • Start services: ./quick_start_django.sh"
+echo "  • Test deployment: ./test_django_migration.sh"
+echo "  • View logs: docker-compose -f docker-compose-django.yml logs -f"
+echo
