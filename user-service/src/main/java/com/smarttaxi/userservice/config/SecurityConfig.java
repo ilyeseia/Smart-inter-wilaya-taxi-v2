@@ -2,6 +2,7 @@ package com.smarttaxi.userservice.config;
 
 import com.smarttaxi.userservice.security.JwtAuthenticationEntryPoint;
 import com.smarttaxi.userservice.security.JwtAuthenticationFilter;
+import com.smarttaxi.userservice.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,9 @@ public class SecurityConfig {
 
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -81,9 +85,7 @@ public class SecurityConfig {
 
         http.authenticationProvider(authenticationProvider());
         
-        JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter();
-        jwtFilter.setUserDetailsService(userDetailsService());
-        jwtFilter.setJwtUtil(jwtUtil); // We need to inject jwtUtil
+        JwtAuthenticationFilter jwtFilter = jwtAuthenticationFilter();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -100,5 +102,13 @@ public class SecurityConfig {
         org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter();
+        jwtFilter.setUserDetailsService(userDetailsService());
+        jwtFilter.setJwtUtil(jwtUtil);
+        return jwtFilter;
     }
 }
