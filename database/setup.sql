@@ -7,11 +7,12 @@ CREATE DATABASE smart_taxi_db;
 -- Connect to the database
 \c smart_taxi_db;
 
--- Create user service schema for multi-tenant architecture
-CREATE SCHEMA IF NOT EXISTS user_service;
+-- Use the public schema (Django's default)
+-- CREATE SCHEMA IF NOT EXISTS user_service;
 
--- Set search path
-SET search_path TO user_service;
+-- Set search path to public
+-- SET search_path TO user_service;
+SET search_path TO public;
 
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
@@ -152,8 +153,8 @@ FROM users u, vehicles v
 WHERE u.email = 'driver1@smarttaxi.dz' AND v.license_plate = '12345-Algiers-16';
 
 -- Grant permissions
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA user_service TO postgres;
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA user_service TO postgres;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO postgres;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO postgres;
 
 -- Enable row level security (RLS) for multi-tenant data isolation
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
