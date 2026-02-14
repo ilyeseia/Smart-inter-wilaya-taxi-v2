@@ -1,0 +1,43 @@
+{
+  "name": "Smart Inter-Wilaya Taxi",
+  "short_name": "Smart Taxi",
+  "description": "منصة ذكية لربط السائقين بالركاب في رحلات بين الولايات الجزائرية",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f0e8",
+  "theme_color": "#b87333",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo-new.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["transportation", "travel", "navigation"],
+  "lang": "ar",
+  "dir": "rtl",
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "حجز رحلة",
+      "short_name": "حجز",
+      "description": "احجز رحلة جديدة",
+      "url": "/?action=book",
+      "icons": [{ "src": "/logo.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "السائقين",
+      "short_name": "سائقين",
+      "description": "عرض السائقين المتاحين",
+      "url": "/?tab=drivers",
+      "icons": [{ "src": "/logo.svg", "sizes": "96x96" }]
+    }
+  ]
+}
