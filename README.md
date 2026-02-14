@@ -1,141 +1,181 @@
-# 🚀 Welcome to Z.ai Code Scaffold
+# 🚕 Smart Inter-Wilaya Taxi v2
 
-A modern, production-ready web application scaffold powered by cutting-edge technologies, designed to accelerate your development with [Z.ai](https://chat.z.ai)'s AI-powered coding assistance.
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js" alt="Next.js 15">
+  <img src="https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript" alt="TypeScript">
+  <img src="https://img.shields.io/badge/TailwindCSS-4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
+</p>
 
-## ✨ Technology Stack
+<p align="center">
+  <strong>🇩🇿 منصة ذكية لربط السائقين بالركاب في رحلات بين الولايات الجزائرية</strong>
+</p>
 
-This scaffold provides a robust foundation built with:
-
-### 🎯 Core Framework
-- **⚡ Next.js 16** - The React framework for production with App Router
-- **📘 TypeScript 5** - Type-safe JavaScript for better developer experience
-- **🎨 Tailwind CSS 4** - Utility-first CSS framework for rapid UI development
-
-### 🧩 UI Components & Styling
-- **🧩 shadcn/ui** - High-quality, accessible components built on Radix UI
-- **🎯 Lucide React** - Beautiful & consistent icon library
-- **🌈 Framer Motion** - Production-ready motion library for React
-- **🎨 Next Themes** - Perfect dark mode in 2 lines of code
-
-### 📋 Forms & Validation
-- **🎣 React Hook Form** - Performant forms with easy validation
-- **✅ Zod** - TypeScript-first schema validation
-
-### 🔄 State Management & Data Fetching
-- **🐻 Zustand** - Simple, scalable state management
-- **🔄 TanStack Query** - Powerful data synchronization for React
-- **🌐 Fetch** - Promise-based HTTP request
-
-### 🗄️ Database & Backend
-- **🗄️ Prisma** - Next-generation TypeScript ORM
-- **🔐 NextAuth.js** - Complete open-source authentication solution
-
-### 🎨 Advanced UI Features
-- **📊 TanStack Table** - Headless UI for building tables and datagrids
-- **🖱️ DND Kit** - Modern drag and drop toolkit for React
-- **📊 Recharts** - Redefined chart library built with React and D3
-- **🖼️ Sharp** - High performance image processing
-
-### 🌍 Internationalization & Utilities
-- **🌍 Next Intl** - Internationalization library for Next.js
-- **📅 Date-fns** - Modern JavaScript date utility library
-- **🪝 ReactUse** - Collection of essential React hooks for modern development
-
-## 🎯 Why This Scaffold?
-
-- **🏎️ Fast Development** - Pre-configured tooling and best practices
-- **🎨 Beautiful UI** - Complete shadcn/ui component library with advanced interactions
-- **🔒 Type Safety** - Full TypeScript configuration with Zod validation
-- **📱 Responsive** - Mobile-first design principles with smooth animations
-- **🗄️ Database Ready** - Prisma ORM configured for rapid backend development
-- **🔐 Auth Included** - NextAuth.js for secure authentication flows
-- **📊 Data Visualization** - Charts, tables, and drag-and-drop functionality
-- **🌍 i18n Ready** - Multi-language support with Next Intl
-- **🚀 Production Ready** - Optimized build and deployment settings
-- **🤖 AI-Friendly** - Structured codebase perfect for AI assistance
-
-## 🚀 Quick Start
-
-```bash
-# Install dependencies
-bun install
-
-# Start development server
-bun run dev
-
-# Build for production
-bun run build
-
-# Start production server
-bun start
-```
-
-Open [http://localhost:3000](http://localhost:3000) to see your application running.
-
-## 🤖 Powered by Z.ai
-
-This scaffold is optimized for use with [Z.ai](https://chat.z.ai) - your AI assistant for:
-
-- **💻 Code Generation** - Generate components, pages, and features instantly
-- **🎨 UI Development** - Create beautiful interfaces with AI assistance  
-- **🔧 Bug Fixing** - Identify and resolve issues with intelligent suggestions
-- **📝 Documentation** - Auto-generate comprehensive documentation
-- **🚀 Optimization** - Performance improvements and best practices
-
-Ready to build something amazing? Start chatting with Z.ai at [chat.z.ai](https://chat.z.ai) and experience the future of AI-powered development!
-
-## 📁 Project Structure
-
-```
-src/
-├── app/                 # Next.js App Router pages
-├── components/          # Reusable React components
-│   └── ui/             # shadcn/ui components
-├── hooks/              # Custom React hooks
-└── lib/                # Utility functions and configurations
-```
-
-## 🎨 Available Features & Components
-
-This scaffold includes a comprehensive set of modern web development tools:
-
-### 🧩 UI Components (shadcn/ui)
-- **Layout**: Card, Separator, Aspect Ratio, Resizable Panels
-- **Forms**: Input, Textarea, Select, Checkbox, Radio Group, Switch
-- **Feedback**: Alert, Toast (Sonner), Progress, Skeleton
-- **Navigation**: Breadcrumb, Menubar, Navigation Menu, Pagination
-- **Overlay**: Dialog, Sheet, Popover, Tooltip, Hover Card
-- **Data Display**: Badge, Avatar, Calendar
-
-### 📊 Advanced Data Features
-- **Tables**: Powerful data tables with sorting, filtering, pagination (TanStack Table)
-- **Charts**: Beautiful visualizations with Recharts
-- **Forms**: Type-safe forms with React Hook Form + Zod validation
-
-### 🎨 Interactive Features
-- **Animations**: Smooth micro-interactions with Framer Motion
-- **Drag & Drop**: Modern drag-and-drop functionality with DND Kit
-- **Theme Switching**: Built-in dark/light mode support
-
-### 🔐 Backend Integration
-- **Authentication**: Ready-to-use auth flows with NextAuth.js
-- **Database**: Type-safe database operations with Prisma
-- **API Client**: HTTP requests with Fetch + TanStack Query
-- **State Management**: Simple and scalable with Zustand
-
-### 🌍 Production Features
-- **Internationalization**: Multi-language support with Next Intl
-- **Image Optimization**: Automatic image processing with Sharp
-- **Type Safety**: End-to-end TypeScript with Zod validation
-- **Essential Hooks**: 100+ useful React hooks with ReactUse for common patterns
-
-## 🤝 Get Started with Z.ai
-
-1. **Clone this scaffold** to jumpstart your project
-2. **Visit [chat.z.ai](https://chat.z.ai)** to access your AI coding assistant
-3. **Start building** with intelligent code generation and assistance
-4. **Deploy with confidence** using the production-ready setup
+<p align="center">
+  <a href="#features">المميزات</a> •
+  <a href="#demo">عرض تجريبي</a> •
+  <a href="#installation">التثبيت</a> •
+  <a href="#tech-stack">التقنيات</a> •
+  <a href="#contributing">المساهمة</a>
+</p>
 
 ---
 
-Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+## 🌟 Features | المميزات
+
+### 🎨 تصميم مميز
+- **Sahara Elegance Theme** - تصميم مستوحى من دفء الصحراء الجزائرية
+- ألوان التراكوتا والعنبر مع لمسات تركوازية
+- دعم كامل للغة العربية (RTL)
+- وضع داكن/فاتح
+
+### 🚀 واجهة رئيسية جذابة
+- صفحة هبوط متحركة مع رسوم متحركة سلسة
+- عرض الطرق الشائعة بتصميم أنيق
+- بطاقات سائقين تفاعلية
+- إحصائيات متحركة
+
+### 📊 لوحة تحكم متكاملة
+- إدارة السائقين
+- تتبع المجموعات
+- تحليلات وإحصائيات
+- إعدادات المسؤول
+
+## 🖥️ Demo | عرض تجريبي
+
+![Smart Taxi Demo](https://via.placeholder.com/800x400/1a1a2e/ffffff?text=Smart+Inter-Wilaya+Taxi+v2)
+
+## 🛠️ Installation | التثبيت
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/smart-inter-wilaya-taxi-v2.git
+
+# Navigate to project directory
+cd smart-inter-wilaya-taxi-v2
+
+# Install dependencies
+bun install
+
+# Run development server
+bun run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 🏗️ Tech Stack | التقنيات
+
+| Technology | Purpose |
+|------------|---------|
+| **Next.js 15** | React Framework |
+| **TypeScript** | Type Safety |
+| **Tailwind CSS 4** | Styling |
+| **shadcn/ui** | UI Components |
+| **Lucide Icons** | Icons |
+| **Prisma** | Database ORM |
+
+## 📁 Project Structure | هيكل المشروع
+
+```
+smart-inter-wilaya-taxi-v2/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx          # Main page
+│   │   ├── layout.tsx        # Root layout
+│   │   ├── globals.css       # Global styles
+│   │   └── api/              # API routes
+│   ├── components/
+│   │   ├── ui/               # UI components (shadcn)
+│   │   └── taxi/             # Taxi-specific components
+│   ├── lib/
+│   │   ├── constants.ts      # App constants
+│   │   ├── types.ts          # TypeScript types
+│   │   └── utils.ts          # Utility functions
+│   └── hooks/                # Custom hooks
+├── public/                   # Static assets
+└── prisma/                   # Database schema
+```
+
+## 🎨 Design System | نظام التصميم
+
+### Colors | الألوان
+
+| Name | Light Mode | Dark Mode | Usage |
+|------|------------|-----------|-------|
+| **Primary** | Terracotta `oklch(0.55 0.18 45)` | Golden `oklch(0.75 0.16 55)` | Buttons, accents |
+| **Accent** | Teal `oklch(0.6 0.15 180)` | Bright Teal `oklch(0.7 0.16 180)` | Highlights, badges |
+| **Background** | Warm Cream | Deep Navy | Page backgrounds |
+
+### Typography | الخطوط
+
+- **Headings**: Playfair Display (elegant serif)
+- **Body**: Outfit (modern sans-serif)
+- **Arabic**: Amiri (traditional Arabic serif)
+
+## 🌐 Languages | اللغات
+
+- 🇩🇿 **Arabic** (العربية) - Full RTL support
+- 🇫🇷 **French** (Français)
+
+## 📱 Responsive Design
+
+- ✅ Mobile-first approach
+- ✅ Tablet optimization
+- ✅ Desktop enhancements
+- ✅ Adaptive layouts
+
+## 🚀 Deployment | النشر
+
+### Vercel (Recommended)
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+```
+
+### Docker
+
+```bash
+# Build image
+docker build -t smart-taxi-v2 .
+
+# Run container
+docker run -p 3000:3000 smart-taxi-v2
+```
+
+## 🤝 Contributing | المساهمة
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License | الرخصة
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author | المؤلف
+
+**Smart Inter-Wilaya Taxi Team**
+
+- Website: [https://smart-inter-wilaya-taxi-v2.vercel.app](https://smart-inter-wilaya-taxi-v2.vercel.app)
+- GitHub: [@ilyeseia](https://github.com/ilyeseia)
+
+## 🙏 Acknowledgments | شكر وتقدير
+
+- [Next.js](https://nextjs.org/) - The React Framework
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
+- [shadcn/ui](https://ui.shadcn.com/) - Beautiful UI components
+- [Lucide](https://lucide.dev/) - Beautiful icons
+
+---
+
+<p align="center">
+  Made with ❤️ in 🇩🇿 Algeria
+</p>

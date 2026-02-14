@@ -1,8 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Smart Inter-Wilaya Taxi v2 - Prisma Schema
+// Algeria intercity taxi coordination platform
 
 generator client {
   provider = "prisma-client-js"
@@ -13,20 +10,141 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User model - supports drivers, admins, and passengers
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
-  name      String?
+  name      String
+  phone     String?
+  role      String   @default("driver") // admin, driver, passenger
+  avatar    String?
+  status    String   @default("offline") // online, offline, busy
+  language  String   @default("ar") // ar, fr
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  // Relations
+  driverProfile Driver?
+  groups        GroupMember[]
+  messages      Message[]
+  locations     Location[]
+  tripsAsDriver Trip[]         @relation("DriverTrips")
+  tripsAsUser   Trip[]         @relation("UserTrips")
 }
 
-model Post {
+// Driver profile with vehicle information
+model Driver {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  licenseNumber   String
+  vehiclePlate    String
+  vehicleType     String   @default("sedan") // sedan, van, suv
+  vehicleColor    String?
+  vehicleCapacity Int      @default(4)
+  wilaya          String   // Current wilaya (province)
+  rating          Float    @default(5.0)
+  totalTrips      Int      @default(0)
+  totalEarnings   Float    @default(0)
+  isVerified      Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Group for coordinating multiple drivers
+model Group {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  wilayaFrom  String   // Starting wilaya
+  wilayaTo    String   // Destination wilaya
+  status      String   @default("active") // active, completed, cancelled
+  maxMembers  Int      @default(10)
+  createdBy   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  members GroupMember[]
+  trips   Trip[]
+}
+
+// Group membership
+model GroupMember {
+  id       String   @id @default(cuid())
+  groupId  String
+  userId   String
+  role     String   @default("member") // leader, member
+  joinedAt DateTime @default(now())
+  
+  // Relations
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([groupId, userId])
+}
+
+// Location tracking for real-time updates
+model Location {
   id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
+  userId    String
+  latitude  Float
+  longitude Float
+  heading   Float?
+  speed     Float?
+  timestamp DateTime @default(now())
+  
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Chat messages
+model Message {
+  id        String   @id @default(cuid())
+  senderId  String
+  receiverId String? // For direct messages
+  groupId   String?  // For group messages
+  content   String
+  type      String   @default("text") // text, location, image
+  isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  
+  // Relations
+  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+}
+
+// Trip records
+model Trip {
+  id           String   @id @default(cuid())
+  driverId     String
+  userId       String?
+  groupId      String?
+  wilayaFrom   String
+  wilayaTo     String
+  distance     Float    // in km
+  duration     Int      // in minutes
+  price        Float
+  status       String   @default("scheduled") // scheduled, in_progress, completed, cancelled
+  passengers   Int      @default(1)
+  startDate    DateTime?
+  endDate      DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  // Relations
+  driver User  @relation("DriverTrips", fields: [driverId], references: [id])
+  user   User? @relation("UserTrips", fields: [userId], references: [id])
+  group  Group? @relation(fields: [groupId], references: [id], onDelete: SetNull)
+}
+
+// Analytics data
+model Analytics {
+  id           String   @id @default(cuid())
+  date         DateTime @default(now())
+  totalTrips   Int      @default(0)
+  activeDrivers Int     @default(0)
+  totalEarnings Float   @default(0)
+  avgRating    Float    @default(0)
+  wilayaFrom   String
+  wilayaTo     String
 }

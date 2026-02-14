@@ -49,3 +49,23 @@ prompt
 server.log
 # Skills directory
 /skills/
+
+# Database files
+*.db
+*.db-journal
+db/
+
+# Uploads
+upload/
+
+# Generated reports
+download/*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary files
+*.tmp
+*.temp
